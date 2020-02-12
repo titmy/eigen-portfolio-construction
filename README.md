@@ -1,23 +1,24 @@
 Overview
 ========
 
--  Ease of use: Catalyst tries to get out of your way so that you can 
-   focus on algorithm development. See 
-   `examples of trading strategies <https://github.com/enigmampc/catalyst/tree/master/catalyst/examples>`_ 
-   provided.
--  Support for several of the top crypto-exchanges by trading volume:
-   `Bitfinex <https://www.bitfinex.com>`_, `Bittrex <http://www.bittrex.com>`_,
-   `Poloniex <https://www.poloniex.com>`_ and `Binance <https://www.binance.com/>`_.
--  Secure: You and only you have access to each exchange API keys for your accounts.
--  Input of historical pricing data of all crypto-assets by exchange, 
-   with daily and minute resolution. See 
-   `Catalyst Market Coverage Overview <https://www.enigma.co/catalyst/status>`_.
--  Backtesting and live-trading functionality, with a seamless transition
-   between the two modes.
--  Output of performance statistics are based on Pandas DataFrames to 
-   integrate nicely into the existing PyData eco-system.
--  Statistic and machine learning libraries like matplotlib, scipy, 
-   statsmodels, and sklearn support development, analysis, and 
-   visualization of state-of-the-art trading systems.
--  Addition of Bitcoin price (btc_usdt) as a benchmark for comparing 
-   performance across trading algorithms.
+-  Implementing PCA using Rapid's CuML and S&P 500 Index stock data
+We look will look at model-free factor analysis using PCA. By model-free we mean that we do not rely on any factors such as value or momentum to decompose portfolio returns, but instead using Principal Component Analysis (PCA) to deduce structure of portfolio returns.
+
+- Part 1 (Asset Returns Calculation)
+Before we start building the PCA model with the dataset, we want to account for stationarity in stock prices. To address this problem, we calculate for percent returns, also known as simple returns using asset_prices. We will assign the result to variable asset_returns.
+We now compute stock returns and normalize stock returns data by subtracting the mean and dividing by standard diviation. This normalization is necessary for PCA to perform well. This is because PCA calculates a new projection on the data set, and the new axis are based on the standard deviation of the variables. Thus, a variable with a high standard deviation will have a higher weight for the calculation of axis than a variable with a low standard deviation. When we normalize the data, all variables have the same standard deviation, thus all variables have the same weight and the PCA calculates relevant axis in relation to others
+
+- Part 2 (Eigen-portfolios construction)
+
+Following Avellaneda we define eigen portfolio weights as:
+Q(j)i=v(j)iσi 
+
+where  j  is the index of eigen portfolio and  vi  is the i-th element of j-th eigen vector.
+
+In the code the pca.components_ are the Principal axes in feature space, representing the directions of maximum variance in the data. The components are sorted by explained_variance_.
+
+We then normalize the portfolio weights so they sum up to one, where positive means a long position and negative value means a short. The weights of the first eigen portfolio will be pc_w
+
+- Part 3 (Evaluating the performance of eigen portfolios using sharpe ratio)
+In the part, we shall backtest our eigenweighted portfolio with our out-of-sample testing dataset. An appropriate evaluation metric will be chosen, in this case sharpe ratio, and compared with the other eigen portfolios. The portfolio with the highest sharpe ratio will be chosen as the final model for our PCA strategy
+
