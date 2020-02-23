@@ -14,3 +14,11 @@ Q(j)i=v(j)iσi where  j  is the index of eigen portfolio and  vi  is the i-th el
 - Part 3 (Evaluating the performance of eigen portfolios using sharpe ratio)
 In the part, we shall backtest our eigenweighted portfolio with our out-of-sample testing dataset. An appropriate evaluation metric will be chosen, in this case sharpe ratio, and compared with the other eigen portfolios. The portfolio with the highest sharpe ratio will be chosen as the final model for our PCA strategy
 
+
+Making the bridge to the financial markets, by obtaining the principal components
+of a data set composed by a time series of stock returns, each principal component can be
+seen as representing a risk factor. The first component, which accounts for most of the
+variation of the data, is widely accepted as representing the market returns, while
+companies with similar coefficients related to the second component tend to be from the
+same industry (Avellaneda e Jeong-Hyun 2010). 
+
